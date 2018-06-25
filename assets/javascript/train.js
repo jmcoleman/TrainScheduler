@@ -80,7 +80,8 @@
     firebase.initializeApp(config);
 
     // Create a variable to reference the database
-    var database = firebase.database();
+    //var database = firebase.database();
+    var database = firebase.database().ref("trains");
   
     // variables
     var trainName = "";
@@ -102,35 +103,86 @@
         frequency = $("#frequency-input").val().trim();
 
         // assign the variables to Firebase db values
-        database.ref().set({
-        trainName: trainName,
-        destination: destination,
-        firstTrainTime: firstTrainTime,
-        frequency: frequency
-        });
+        // database.ref().set({
+        //     trainName: trainName,
+        //     destination: destination,
+        //     firstTrainTime: firstTrainTime,
+        //     frequency: frequency
+        // });
 
+        // OR using push
+        // Code for handling the push
+        //database.ref().push({
+        database.push({
+            trainName: trainName,
+            destination: destination,
+            firstTrainTime: firstTrainTime,
+            frequency: frequency,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
     });
 
+    ///////////////////////////////////////////
     // Firebase event listener for changes
+    ///////////////////////////////////////////
     // On initial load and on subsequent data value changes, get a snapshot of the current data. 
     // This callback keeps the page updated when a value changes in firebase.
-    database.ref().on("value", function(snapshot) {
+    //database.ref().on("value", function(snapshot) {
+    // database.on("value", function(snapshot) {
 
-        // log results from snapshot
-        console.log(snapshot.val());
-        console.log(snapshot.val().trainName);
-        console.log(snapshot.val().destination);
-        console.log(snapshot.val().firstTrainTime);
-        console.log(snapshot.val().frequency);
+    //     // log results from snapshot
+    //     console.log("in value on");
+    //     console.log(snapshot.val());
+    //     console.log(snapshot.val().trainName);
+    //     console.log(snapshot.val().destination);
+    //     console.log(snapshot.val().firstTrainTime);
+    //     console.log(snapshot.val().frequency);
 
-        // Change the HTML to reflect
-        $("#train-name-display").text(snapshot.val().trainName);
-        $("#destination-display").text(snapshot.val().destination);
-        $("#first-train-time-display").text(snapshot.val().firstTrainTime);
-        $("#frequency-display").text(snapshot.val().frequency);
+    //     // Change the HTML to reflect
+    //     $("#train-name-display").text(snapshot.val().trainName);
+    //     $("#destination-display").text(snapshot.val().destination);
+    //     $("#first-train-time-display").text(snapshot.val().firstTrainTime);
+    //     $("#frequency-display").text(snapshot.val().frequency);
 
-        // Handle the errors
+    //     // Handle the errors
+    // }, function(errorObject) {
+    //     console.log("Errors handled: " + errorObject.code);
+    // });
+  
+    ///////////////////////////////////////////
+    // Firebase watcher .on "child_added"
+    ///////////////////////////////////////////
+    //database.ref().on("child_added", function(snapshot) {
+    database.on("child_added", function(snapshot) {
+
+        // storing the snapshot.val() in a variable for convenience
+        var sv = snapshot.val();
+
+        // Console.loging the last user's data
+        console.log("in child added");
+        console.log(sv.trainName);
+        console.log(sv.destination);
+        console.log(sv.firstTrainTime);
+        console.log(sv.frequency);
+
+        // Change the HTML to reflect       TODO update this to change the table
+        $("#train-name-display").text(sv.trainName);
+        $("#destination-display").text(sv.destination);
+        $("#first-train-time-display").text(sv.firstTrainTime);
+        $("#frequency-display").text(sv.frequency);
+
+    // Handle the errors
     }, function(errorObject) {
         console.log("Errors handled: " + errorObject.code);
     });
-  
+
+    //dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+    database.orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+        console.log("in orderby added");
+
+        // update the html with the values
+        $("#td-train-name-display").text(snapshot.val().trainName);
+        $("#td-destination-display").text(snapshot.val().destination);
+        $("#td-first-train-time-display").text(snapshot.val().firstTrainTime);
+        $("#td-frequency-display").text(snapshot.val().frequency);
+    });
