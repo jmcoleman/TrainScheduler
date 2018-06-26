@@ -91,8 +91,8 @@
 
     // Capture Button Click
     $("#add-train").on("click", function(event) {
-        // do not refresh the page
-        event.preventDefault();
+        // do not uncomment the below so we see the form validation errors
+        //event.preventDefault();
 
         // store and retrieve the most recent train info
         // Don't forget to provide initial data to your Firebase database.  
@@ -101,6 +101,20 @@
         destination = $("#destination-input").val().trim();
         firstTrainTime = $("#first-train-time-input").val().trim();
         frequency = $("#frequency-input").val().trim();
+
+        console.log("format firsttrain time:" + moment(firstTrainTime,"HH:mm"));
+        console.log("format frequency: " + moment(frequency,"mm"));
+
+        if (!moment(firstTrainTime,"HH:mm").isValid()) {
+            console.log("firstTrainTime invalid");
+            $("#first-train-time-input").focus();
+            return false;
+        }
+        if (!moment(frequency,"mm").isValid()) {
+            $("#frequency-input").focus();
+            console.log("frequency invalid.");
+            return false;
+        }
 
         // assign the variables to Firebase db values
         // database.ref().set({
@@ -166,10 +180,21 @@
         console.log(sv.frequency);
 
         // Change the HTML to reflect       TODO update this to change the table
-        $("#train-name-display").text(sv.trainName);
-        $("#destination-display").text(sv.destination);
-        $("#first-train-time-display").text(sv.firstTrainTime);
-        $("#frequency-display").text(sv.frequency);
+        // $("#train-name-display").text(sv.trainName);
+        // $("#destination-display").text(sv.destination);
+        // $("#first-train-time-display").text(sv.firstTrainTime);
+        // $("#frequency-display").text(sv.frequency);
+              
+        // full list of items to the well
+        $("#all-trains-list").append(
+            "<tr>" +
+                "<td id='train-name-display' scope='row'>"  + sv.trainName + "</td>" +
+                "<td id='destination-display'>"             + sv.destination + "</td>" +
+                "<td id='first-train-time-display'>"        + sv.firstTrainTime + "</td>" +
+                "<td id='frequency-display'>"               + sv.frequency + "</td>" +
+                "<td></td>" +
+            "</tr>");
+          
 
     // Handle the errors
     }, function(errorObject) {

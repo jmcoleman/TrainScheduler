@@ -48,7 +48,7 @@
                         <!-- Add Train Schedule TABLE -->
                         <div class="table-responsive">
                             <table class="table">
-                                <caption>Updated Realtime</caption>
+                                <!--caption>Updated Realtime</caption-->
                                 <thead>
                                     <tr>
                                         <th scope="col">Train Name</th>
@@ -58,28 +58,14 @@
                                         <th scope="col">Minutes Away</th>
                                     </tr>
                                 </thead>
-                                <tbody>                             <!-- TODO MAKE DYNAMIC -->
-                                    <tr>
+                                <tbody id="all-trains-list">       
+                                    <!--tr>
                                         <td id="td-train-name-display" scope="row">1</td>
                                         <td id="td-destination-display">Mark</td>
                                         <td id="td-first-train-time-display">Otto</td>
                                         <td id="td-frequency-display">@mdo</td>
                                         <td id="">1</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">3</td>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>1</td>
-                                    </tr>
+                                    </tr-->
                                 </tbody>
                             </table>
                         </div>
@@ -104,19 +90,19 @@
                         <form role="form">
                             <div class="form-group row mx-3">
                                 <label for="train-name-input">Train Name</label>
-                                <input class="form-control" id="train-name-input" type="text" required>
+                                <input class="form-control" id="train-name-input" type="text" maxlength="100" required autofocus>
                             </div>
                             <div class="form-group row mx-3">
                                 <label for="destination-input">Destination</label>
-                                <input class="form-control" id="destination-input" type="text" required>
+                                <input class="form-control" id="destination-input" maxlength="100"  type="text" required>
                             </div>
                             <div class="form-group row mx-3">
                                 <label for="first-train-time-input">First Train Time (HH:mm - military time)</label>
-                                <input class="form-control" id="first-train-time-input" type="time" required>
+                                <input class="form-control" id="first-train-time-input" maxlength="5" type="text" required>
                             </div>
                             <div class="form-group row mx-3">
                                 <label for="frequency-input">Frequency (min)</label>
-                                <input class="form-control" id="frequency-input" type="time" required>
+                                <input class="form-control" id="frequency-input" type="text" maxlength="6" required>
                             </div>
                             <button class="btn btn-default mx-3" id="add-train" type="submit">Submit</button>
                         </form>
@@ -127,8 +113,7 @@
         </div>
 
         <!-- Use the below for TESTING... -->
-        <div class="row mt-4">
-            <!-- Most Recent Train Info -->
+        <!--div class="row mt-4">
             <div class="col-lg-12">
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">
@@ -145,7 +130,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
 
     </div>
     <!-- end HTML CODE -->
