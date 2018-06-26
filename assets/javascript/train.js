@@ -91,12 +91,10 @@
 
     // Capture Button Click
     $("#add-train").on("click", function(event) {
-        // do not uncomment the below so we see the form validation errors
+        //do not uncomment the below so we see the HTML5 form validation errors
         //event.preventDefault();
 
         // store and retrieve the most recent train info
-        // Don't forget to provide initial data to your Firebase database.  
-        //TODO id how to add data without they key being there
         trainName = $("#train-name-input").val().trim();
         destination = $("#destination-input").val().trim();
         firstTrainTime = $("#first-train-time-input").val().trim();
@@ -184,17 +182,21 @@
         // $("#destination-display").text(sv.destination);
         // $("#first-train-time-display").text(sv.firstTrainTime);
         // $("#frequency-display").text(sv.frequency);
-              
+        
+        var nextArrival = moment().format("HH:mm A");
+        var minutesAway = moment().format("mm");
+
         // full list of items to the well
         $("#all-trains-list").append(
             "<tr>" +
                 "<td id='train-name-display' scope='row'>"  + sv.trainName + "</td>" +
                 "<td id='destination-display'>"             + sv.destination + "</td>" +
-                "<td id='first-train-time-display'>"        + sv.firstTrainTime + "</td>" +
-                "<td id='frequency-display'>"               + sv.frequency + "</td>" +
+                "<td id='frequency-display'>"               + moment(sv.frequency).format("mm") + "</td>" +
+                "<td id='next-arrival-display'>"            + nextArrival + "</td>" +
+                "<td id='minutes-away-display'>"            + minutesAway + "</td>" +
                 "<td></td>" +
             "</tr>");
-          
+//                "<td id='first-train-time-display'>"        + sv.firstTrainTime + "</td>" +          
 
     // Handle the errors
     }, function(errorObject) {
