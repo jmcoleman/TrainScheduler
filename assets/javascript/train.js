@@ -89,7 +89,7 @@
     var firstTrainTime = 0;
     var frequency = "";
 
-    // Capture Button Click
+    // button Click to add new train
     $("#add-train").on("click", function(event) {
         //do not uncomment the below so we see the HTML5 form validation errors
         //event.preventDefault();
@@ -123,7 +123,6 @@
         // });
 
         // OR using push
-        // Code for handling the push
         //database.ref().push({
         database.push({
             trainName: trainName,
@@ -172,10 +171,10 @@
 
         // Console.loging the last user's data
         console.log("in child added");
-        console.log(sv.trainName);
-        console.log(sv.destination);
-        console.log(sv.firstTrainTime);
-        console.log(sv.frequency);
+        console.log("FB trainName:" + sv.trainName);
+        console.log("FB destination:" + sv.destination);
+        console.log("FB firstTrainTime:" + sv.firstTrainTime);
+        console.log("FB frequency:" + sv.frequency);
 
         // Change the HTML to reflect       TODO update this to change the table
         // $("#train-name-display").text(sv.trainName);
@@ -183,17 +182,49 @@
         // $("#first-train-time-display").text(sv.firstTrainTime);
         // $("#frequency-display").text(sv.frequency);
         
-        var nextArrival = moment().format("HH:mm A");
-        var minutesAway = moment().format("mm");
+        // var nextArrival = moment().format("HH:mm A");
+        // var minutesAway = moment().format("mm");
+
+        //train info
+        //var tFrequency = moment(sv.frequency,"mm").toDate();        //set to a date in minutes
+        var tFrequency = sv.frequency;  
+
+        var firstTime = moment(sv.firstTrainTime,"HH:mm");          //"03:30";
+        console.log("first time: " + firstTime);
+        console.log("frequency: " + tFrequency);
+
+        // first Time (pushed back 1 year to make sure it comes before current time)
+        var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+        console.log(moment(firstTimeConverted).format("HH:mm"));
+    
+        // Current Time
+        var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+    
+        // Difference between the times
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
+    
+        // Time apart (remainder)
+        var tRemainder = diffTime % tFrequency;
+        console.log(tRemainder);
+    
+        // Minute Until Train
+        var tMinutesTillTrain = tFrequency - tRemainder;
+        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+    
+        // Next Train
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
         // full list of items to the well
         $("#all-trains-list").append(
             "<tr>" +
                 "<td id='train-name-display' scope='row'>"  + sv.trainName + "</td>" +
                 "<td id='destination-display'>"             + sv.destination + "</td>" +
-                "<td id='frequency-display'>"               + moment(sv.frequency).format("mm") + "</td>" +
-                "<td id='next-arrival-display'>"            + nextArrival + "</td>" +
-                "<td id='minutes-away-display'>"            + minutesAway + "</td>" +
+                "<td id='frequency-display'>"               + tFrequency + "</td>" +
+                "<td id='next-arrival-display'>"            + moment(nextTrain).format("hh:mm") + "</td>" +
+                "<td id='minutes-away-display'>"            + tMinutesTillTrain + "</td>" +
                 "<td></td>" +
             "</tr>");
 //                "<td id='first-train-time-display'>"        + sv.firstTrainTime + "</td>" +          
