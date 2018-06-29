@@ -223,7 +223,7 @@
                 "<td id='train-name-display' scope='row'>"  + sv.trainName + "</td>" +
                 "<td id='destination-display'>"             + sv.destination + "</td>" +
                 "<td id='frequency-display'>"               + tFrequency + "</td>" +
-                "<td id='next-arrival-display'>"            + moment(nextTrain).format("hh:mm") + "</td>" +
+                "<td id='next-arrival-display'>"            + moment(nextTrain).format("hh:mm A") + "</td>" +
                 "<td id='minutes-away-display'>"            + tMinutesTillTrain + "</td>" +
                 "<td></td>" +
             "</tr>");
