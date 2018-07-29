@@ -22,6 +22,9 @@ var trainName = "";
 var destination = "";
 var firstTrainTime = 0;
 var frequency = "";
+var trainTimer;
+
+window.trainTimer = window.setInterval(updateRemainingTime, 1000);  // start timer
 
 // button Click to add new train
 $("#add-train").on("click", function(event) {
@@ -62,7 +65,7 @@ $("#add-train").on("click", function(event) {
         trainName: trainName,
         destination: destination,
         firstTrainTime: firstTrainTime,
-        frequency: frequency,
+        frequency: moment(frequency,"mm").minute(),
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 });
@@ -152,7 +155,7 @@ database.on("child_added", function(snapshot) {
 
     // full list of items to the well
     $("#all-trains-list").append(
-        "<tr>" +
+        "<tr id=" + sv.trainName + ">" +
             "<td id='train-name-display' scope='row'>"  + sv.trainName + "</td>" +
             "<td id='destination-display'>"             + sv.destination + "</td>" +
             "<td id='frequency-display'>"               + tFrequency + "</td>" +
@@ -177,3 +180,24 @@ database.orderByChild("dateAdded").limitToLast(1).on("child_added", function(sna
     $("#td-first-train-time-display").text(snapshot.val().firstTrainTime);
     $("#td-frequency-display").text(snapshot.val().frequency);
 });
+
+///////////////////////////////////////////
+// Functions
+///////////////////////////////////////////
+ function updateRemainingTime() {
+     var timeOver = false;
+     var timeLeft;
+
+//     // countdown
+//     game.timeleft--;
+//     $("#train #minutes-away-display").text(game.timeleft);
+    
+    // if (game.timeleft <=0 && !game.answerSubmitted) {
+    //     timeOver = true;
+    //     clearInterval(trainTimer);
+    // };
+    
+    //update next arrival
+
+    //update minutes away
+ };
