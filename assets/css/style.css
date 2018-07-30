@@ -2,3 +2,46 @@ body {
     font-family: 'PT Sans Narrow', sans-serif;
     font-family: 'PT Sans', sans-serif;
 }
+
+.bg-1 { 
+    background-color: #0F1B07; /* deep green */
+    color: #ffffff;
+ }
+
+.bg-2 { 
+    background-color: #ffffff; /* new growth */
+    color: #C6D166;
+}
+
+.bg-3 { 
+    /* background-color: #ffffff; White */
+    background-color:rgba(0,0,0,0.7);
+    color: #5c821A;
+}
+
+.bg-4 { 
+    background-color: #5c821A; /* new growth */
+    color: #C6D166;
+}
+
+.border-1 {
+    border-color:  #5c821A important!;
+}
+
+.bg-header {
+    height: 25vh;
+}
+
+.bg-content {
+    /* The image used */
+    background-image: url("../images/ancient-arch-arch-bridge-507410.jpg");
+    /* background-color:rgba(0,0,0,0.3); */
+
+    /* Half height */
+    height: 75vh;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
