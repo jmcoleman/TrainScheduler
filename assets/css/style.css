@@ -34,14 +34,101 @@ body {
 
 .bg-content {
     /* The image used */
-    background-image: url("../images/ancient-arch-arch-bridge-507410.jpg");
+        /* background-image: url("../images/ancient-arch-arch-bridge-507410.jpg"); */
     /* background-color:rgba(0,0,0,0.3); */
 
-    /* Half height */
+    /* adjust height */
     height: 75vh;
 
     /* Center and scale the image nicely */
-    background-position: center;
+    /* background-position: center;
     background-repeat: no-repeat;
+    background-size: cover; */
+
+
+    background: url("../images/ancient-arch-arch-bridge-507410.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
+
+
+/**************************************
+** Media queries
+**************************************/
+
+/*** RESPONSIVE TOPOGRAPHY ***/
+
+/* Extra small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
+@media (max-width: 575px) {  
+    html {
+        font-size: .7rem;
+    }
+
+    h1 {
+        font-size: .4rem;
+    }
+
+    .bg-header {
+        height: 20vh;
+    }
+
+    .bg-content {
+        height: 80vh;
+    }
+}
+
+ /* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {  
+    html {
+        font-size: .8rem;
+    }
+
+}
+
+ /* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {  
+    html {
+        font-size: 1.0rem;
+    }
+
+    .bg-header {
+        height: 30vh;
+    }
+
+    .bg-content {
+        height: 70vh;
+    }
+    
+}
+
+ /* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  
+    html {
+        font-size: 1.2rem;
+    }
+
+    .bg-header {
+        height: 25vh;
+    }
+
+    .bg-content {
+        height: 75vh;
+    }
+
+    #h1-train {
+        margin-top: 1rem!important;
+    }
+
+}
+
+ /* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    html {
+        font-size: 1.2rem;
+    }
+
+}
+
