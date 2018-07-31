@@ -53,6 +53,11 @@ body {
     background-size: cover;
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 
 /**************************************
 ** Media queries
@@ -107,19 +112,15 @@ body {
  /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {  
     html {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .bg-header {
-        height: 25vh;
+        height: 20vh;
     }
 
     .bg-content {
-        height: 75vh;
-    }
-
-    #h1-train {
-        margin-top: 1rem!important;
+        height: 80vh;
     }
 
 }
